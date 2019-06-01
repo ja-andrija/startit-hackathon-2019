@@ -105,3 +105,6 @@ venv.bak/
 readme.txt
 test.json
 train.json
+train_split.json
+val_split.json
+.DS_Store
