@@ -4,6 +4,7 @@ import util
 import numpy as np
 import ast
 import words
+import json
 
 def create_features_and_split(all_data):
     featurized_dataframe = create_features(all_data)
@@ -45,8 +46,10 @@ def create_features(all_data):
 
     mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
     upnp_words_list = words.create_upnp_word_columns(df)
-    
-    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_class'] + mdns_token_names_list + upnp_words_list]
+    dhcp_names = add_dhcp(df)
+    ssdp_words_list = words.create_ssdp_word_columns(df)
+    device_class_column = ['device_class'] if 'device_class' in df else []
+    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
@@ -55,8 +58,45 @@ def split_train_val_data(featurized_dataframe):
     val = featurized_dataframe[~msk]
     return train, val
 
+def get_dhcp_onehot(df):
+    all_dhcp_onehot = []
+    for dhcp in df['dhcp']:
+        one_hot = 256 * [0]
+        if str(dhcp) == 'nan':
+            all_dhcp_onehot.append(one_hot)
+        else:
+            dhcp_data = json.loads(str(dhcp).replace("'",'"'))[0]
+            if 'paramlist' not in dhcp_data:
+                all_dhcp_onehot.append(one_hot)
+            else:
+                paramlist = dhcp_data['paramlist']
+                paramlist = [int(p) for p in paramlist.split(',')]
+                #print(paramlist)
+                for param in paramlist:
+                    one_hot[param] = 1
+                all_dhcp_onehot.append(one_hot)
+    return all_dhcp_onehot
+
+def add_dhcp(df):
+    all_dhcp_onehot = get_dhcp_onehot(df)
+    dhcp_names = []
+    for i in range(256):
+        feature = [dhcp_onehot[i] for dhcp_onehot in all_dhcp_onehot]
+        #print(len(feature))
+        df[f"dhcp_feat{i}"] = feature
+        dhcp_names.append(f"dhcp_feat{i}")
+    return dhcp_names
+
 # sanity checks
-# df = util.load_data_to_dataframe('dataset/train.json')
+# df = util.load_data_to_dataframe('dataset/train_split_orig.json')
+# print(len(df))
+# add_dhcp(df)
+# for dhcp in df['dhcp']:
+#     if str(dhcp) != 'nan':
+#         print(str(dhcp))
+#         dhcp_data = json.loads(str(dhcp).replace("'",'"'))[0]
+#         if 'paramlist' in dhcp_data:
+#             print(dhcp_data['paramlist'])
 # train, val = create_features_and_split(df)
 # print(train.head(20))
 # print(f"TRAIN: {len(train)}")
