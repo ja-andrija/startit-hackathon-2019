@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5b4e5b04-59b6-4522-a6b5-4a612bbe1051}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>key_stats.py</StartupFile>
+    <StartupFile>data_exploration.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -19,6 +19,10 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="data_exploration.py" />
+    <Compile Include="features.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="key_stats.py" />
     <Compile Include="util.py" />
     <Compile Include="__init__.py" />
