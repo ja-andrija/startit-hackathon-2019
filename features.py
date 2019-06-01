@@ -12,8 +12,9 @@ def create_features(all_data):
     df['has_upnp'] = df['upnp'].notna()
     df['has_ssdp'] = df['ssdp'].notna()
     df['has_mdns'] = df['mdns_services'].notna()
+    df['mac_first_3_bytes'] = [mac[0:8] for mac in df['mac']]
 
-    return df[['has_upnp', 'has_ssdp', 'has_mdns', 'device_class']]
+    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'device_class']]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
