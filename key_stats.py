@@ -78,7 +78,7 @@ def get_mdns_stats(json_path):
     return stats_dev_count, stats_dev_to_mdns_out, stats_mdns_to_dev_out
     
     
-
+#TODO: Code below should be one function called 2x wiht different parameters (for value1 and value2)
 def get_dhcp_stats(json_path, tag_name = "dhcp"):
     value1_name ="paramlist"
     value2_name = "classid"
