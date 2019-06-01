@@ -63,7 +63,9 @@ ImportantUpnpWords = [
     'PacketVideo',
     'NVIDIA',
     'CANON',
-    'Blu-ray'
+    'Blu-ray',
+    'Home',
+    'Google Home'
 ]
 
 ImportantSsdpWords = [
@@ -107,29 +109,25 @@ def create_upnp_word_columns(df):
 def test():
     df2 = util.load_data_to_dataframe('dataset/train.json')
     print(df2.count())
-    df2 = df2[df2['upnp'].isna()]
-    print("no upnp ", df2.count())
-    dz = [str(x) for x in df2['ssdp']]
+    # df2 = df2[df2['upnp'].isna()]
+    # print("no upnp ", df2.count())
+    dz = [str(x) for x in df2['dhcp']]
     dc = [str(x) for x in df2['device_class']]
     w = word_list(dz, dc)
 
     myFrame = pandas.DataFrame(w, columns = ['word', 'device_class'])
     newFrame = myFrame.groupby('word').agg("count")
-    pivotFrame = myFrame.pivot_table(columns = ['device_class'], index = ['word'], values = ['word'], aggfunc = 'count')
-
-    print(pivotFrame)
 
     # print(newFrame.head())
-
     # print(newFrame[newFrame['device_class'] > 50])
 #    print(newFrame[newFrame > 50].agg("count"))
     
     # print(newFrame)
 
     # print(myFrame.head())
-    print(len(w))
+    # print(len(w))
     
-    with open('ssdp no upnp words.csv','w', newline='') as out:
+    with open('dhcp words.csv','w', newline='') as out:
         csv_out=csv.writer(out)
         csv_out.writerow(['word','device_class'])
         for row in w:

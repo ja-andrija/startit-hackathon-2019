@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+port_gains.json
+port_device_class.csv
+train_split.json
+visualization.xlsx
+
 .vscode/
 
 # Distribution / packaging
@@ -107,6 +112,8 @@ venv.bak/
 readme.txt
 test.json
 train.json
+port_device_class.csv
+
 train_split.json
 val_split.json
 .DS_Store

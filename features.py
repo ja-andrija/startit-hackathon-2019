@@ -6,6 +6,12 @@ import ast
 import words
 import json
 
+def contains_port(x, port):
+    if type(x['services']) is list:
+        if {'port': port, 'protocol':'udp'} in x['services'] or {'port': port, 'protocol':'tcp'} in x['services']:
+            return True
+    return False 
+
 def create_features_and_split(all_data):
     featurized_dataframe = create_features(all_data)
     train_df, val_df = split_train_val_data(featurized_dataframe)
@@ -51,6 +57,12 @@ def mac_to_int(mac):
     mac = ''.join(mac[:3])
     return int(mac, 16)
 
+def add_port_list(df):
+    ports_to_add = ['5353', '80', '1900', '443', '445', '8080', '139', '515']
+    for port in ports_to_add:
+        df[port] = df.apply(lambda x: contains_port(x, int(port)), axis=1)
+    return ports_to_add
+
 def create_features(all_data):
     df = pd.DataFrame(all_data) #load into dataframe
     
@@ -60,13 +72,16 @@ def create_features(all_data):
     df['has_dhcp'] = df['dhcp'].notna()
     df['mac_first_3_bytes'] = [mac_to_int(mac) for mac in df['mac']]
 
+    port_list = add_port_list(df)
+
     mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
     mac_token_names_list = add_mac_tokens_get_token_names_list(df)
     upnp_words_list = words.create_upnp_word_columns(df)
+
     dhcp_names = add_dhcp(df)
     ssdp_words_list = words.create_ssdp_word_columns(df)
     device_class_column = ['device_class'] if 'device_class' in df else []
-    return df[['has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names + mac_token_names_list]
+    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names + port_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
