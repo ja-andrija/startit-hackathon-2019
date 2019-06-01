@@ -113,3 +113,13 @@ readme.txt
 test.json
 train.json
 port_device_class.csv
+
+train_split.json
+val_split.json
+.DS_Store
+
+/.vs
+/excel rules 3.xlsx
+*.csv
+*.user
+*.xlsx

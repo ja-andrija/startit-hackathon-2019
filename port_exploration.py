@@ -46,6 +46,11 @@ def calculate_gain(port, flattened_services, h_x):
     return i_x_y
 calculate_gain.counter = 0
 
+def contains_port(x, port):
+    if {'port': port, 'protocol':'udp'} in x['services'] or {'port': port, 'protocol':'tcp'} in x['services']:
+        return True
+    return False 
+
 # read the entire file into a python array
 def compute_gains():
     with open('train.json', 'rb') as f:
@@ -78,11 +83,17 @@ with open('train.json', 'rb') as f:
     data = [json.loads(line) for line in data] #convert string to dict format
     df = pd.DataFrame(data) #load into dataframe
 
-    services_df = df.services.apply(pd.Series)
-    flattened_services = services_df.merge(df, left_index=True, right_index=True).drop(['services'], axis=1).melt(id_vars=['device_class', 'device_id'], value_name="services").drop(['variable'], axis=1).dropna()
-    flattened_services['services'] = flattened_services.apply(lambda x: extract_port(x['services']), axis=1)
-    flattened_services = flattened_services.dropna()
+    result_df = df[['device_id', 'device_class', 'services']].dropna()
+    result_df['has_5353'] = result_df.apply(lambda x: contains_port(x, 5353), axis=1)
+    result_df['has_80'] = result_df.apply(lambda x: contains_port(x, 80), axis=1)
+    result_df['has_1900'] = result_df.apply(lambda x: contains_port(x, 1900), axis=1)
+    result_df['has_443'] = result_df.apply(lambda x: contains_port(x, 443), axis=1)
+    result_df['has_445'] = result_df.apply(lambda x: contains_port(x, 445), axis=1)
+    result_df['has_8080'] = result_df.apply(lambda x: contains_port(x, 8080), axis=1)
+    result_df['has_139'] = result_df.apply(lambda x: contains_port(x, 139), axis=1)
 
-    services_top_freq = flattened_services.groupby(['services'])['device_id'].agg(
-        {"service_count": len}).sort_values(
-        "service_count", ascending=False).head(4000).reset_index()
+    result_df.drop('services', axis=1)
+    result_df.to_csv('temp.csv')
+
+    print(result_df[['device_id', 'device_class', 'has_5353']].loc[result_df['has_5353'] == True])
+
