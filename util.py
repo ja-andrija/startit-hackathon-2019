@@ -39,7 +39,6 @@ def load_data_to_dataframe(json_path):
         balance_dataset(data)
         return pandas.DataFrame(data) #load into dataframe
 
-
 def balance_dataset(data, upsampling = True):
     separated_classes_data = separate_data_into_classes(data)
 
