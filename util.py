@@ -38,3 +38,16 @@ def split_train_val(json_path, train_ratio = 0.8):
     val_split = data[train_split_len:]
     write_json_to_file(train_split, 'train_split.json')
     write_json_to_file(val_split, 'val_split.json')
+
+def make_tokens(in_json, out_json):
+	with open(in_json, 'r') as f:
+		data = json.load(f)
+	tokenized = dict(list(enumerate(data)))
+	inv = {v: k for k, v in tokenized.items()}
+	with open(out_json, 'w') as f:
+		json.dump(inv, f)
+
+def get_mdns_tokens():
+	with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "stats_out", "mdns_tokens.json")) as f:
+		mdns_tokens = json.load(f)
+	return mdns_tokens
