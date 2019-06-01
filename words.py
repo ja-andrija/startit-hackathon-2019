@@ -9,6 +9,81 @@ def word_list(column, labels):
     flat_words = [item for sublist in split_words for item in sublist]
     return flat_words
 
+ImportantUpnpWords = [
+    'DIAL',
+    'microsoft',
+    'Player',
+    'TV',
+    'LG',
+    'Philips',
+    'Wireless',
+    'bridge',
+    'Lighting',
+    'Camera',
+    'Smart',
+    'WebOSTV',
+    'SystemProperties',
+    'ZoneGroupTopology',
+    'Streaming',
+    'Amazon',
+    'AlarmClock',
+    'Google',
+    'QPlay',
+    'tencent-com',
+    'sonos-com',
+    'EmbeddedNetDeviceControl',
+    'orange-com',
+    'ScalarWebAPI',
+    'NETGEAR',
+    'Belkin',
+    'remoteaccess',
+     'BRAVIA',
+    'VIErA',
+    'KDL-',
+    '(ReadyDLNA)',
+    'RECEIVER',
+    'QNAP',
+    'BouygtelTV',
+    'ZoneControl',
+    'BboxTV',
+    'EmbeddedNetDevice',
+    'ManageableDevice',
+    'ConfigurationManagement',
+    'TurboNAS',
+    'ReadyNAS',
+    'RootNull',
+    'cellvision',
+    'Aficio',
+    'Seagate',
+    'Verizon',
+    'Technology',
+    'Miniserver',
+    'PIONEER',
+    'PacketVideo',
+    'NVIDIA',
+    'CANON',
+    'Blu-ray'
+]
+
+def create_upnp_word_columns(df):
+    column_names = list()
+    print(df['upnp'][0:5])
+    hack = [str(x) for x in df['upnp']]
+    for word in ImportantUpnpWords:
+        print(word)
+        column_name = 'upnp_' + word
+        column_names.append(column_name)
+        df[column_name] = [str(x).find(word) >= 0 for x in df['upnp']]
+
+    return column_names
+
+#df2 = util.load_data_to_dataframe('dataset/train.json')
+#df2.drop(['ssdp'], 1)
+#create_upnp_word_columns(df2)
+#print(df2)
+#df2.to_csv('hello.csv')
+
+
 def test():
     df2 = util.load_data_to_dataframe('dataset/train.json')
     print(df2.count())
@@ -18,15 +93,18 @@ def test():
 
     myFrame = pandas.DataFrame(w, columns = ['word', 'device_class'])
     newFrame = myFrame.groupby('word').agg("count")
+    pivotFrame = myFrame.pivot_table(columns = ['device_class'], index = ['word'], values = ['word'], aggfunc = 'count')
 
-    print(newFrame.head())
+    print(pivotFrame)
 
-    print(newFrame[newFrame['device_class'] > 50])
+    # print(newFrame.head())
+
+    # print(newFrame[newFrame['device_class'] > 50])
 #    print(newFrame[newFrame > 50].agg("count"))
     
-    print(newFrame)
+    # print(newFrame)
 
-    print(myFrame.head())
+    # print(myFrame.head())
     print(len(w))
     
     #with open('upnp words 3.csv','w', newline='') as out:
@@ -42,7 +120,7 @@ def create_columns(words_column):
     print(word_list([s, s2], ['TV', 'PC']))
 
 
-test()
+# test()
 
 
 
