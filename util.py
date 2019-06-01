@@ -30,6 +30,3 @@ def split_train_val(json_path, train_ratio = 0.8):
     val_split = data[train_split_len:]
     write_json_to_file(train_split, 'train_split.json')
     write_json_to_file(val_split, 'val_split.json')
-
-print(f"test set len: {len(load_all_data(test_pth))}")
-print(f"train set len: {len(load_all_data(train_pth))}")
