@@ -67,10 +67,8 @@ ImportantUpnpWords = [
 
 def create_upnp_word_columns(df):
     column_names = list()
-    print(df['upnp'][0:5])
     hack = [str(x) for x in df['upnp']]
     for word in ImportantUpnpWords:
-        print(word)
         column_name = 'upnp_' + word
         column_names.append(column_name)
         df[column_name] = [str(x).find(word) >= 0 for x in df['upnp']]
