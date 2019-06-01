@@ -87,7 +87,7 @@ def create_features(all_data):
     dhcp_names = add_dhcp(df)
     ssdp_words_list = words.create_ssdp_word_columns(df)
     device_class_column = ['device_class'] if 'device_class' in df else []
-    return df[['open_port_count', 'mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names + port_list]
+    return df[['has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id', 'open_port_count'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names + port_list + mac_token_names_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
@@ -103,7 +103,11 @@ def get_dhcp_onehot(df):
         if str(dhcp) == 'nan':
             all_dhcp_onehot.append(one_hot)
         else:
-            dhcp_data = json.loads(str(dhcp).replace("'",'"'))[0]
+            try:
+                dhcp_data = json.loads(str(dhcp).replace("'",'"'))[0]
+            except Exception:
+                print(str(dhcp))
+                dhcp_data = {}
             if 'paramlist' not in dhcp_data:
                 all_dhcp_onehot.append(one_hot)
             else:

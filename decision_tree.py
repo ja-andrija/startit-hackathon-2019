@@ -32,7 +32,7 @@ def get_feats_labels_ids(df):
     return feats, labels, ids
 
 def get_data_for_submitting():
-    df_train = util.load_data_to_dataframe('dataset/train.json')
+    df_train = util.load_data_to_dataframe('dataset/train.json', upsample=True)
     df_test = util.load_data_to_dataframe('dataset/test.json')
     train_feats, train_labels, _ = get_feats_labels_ids(create_features(df_train))
     test_feats, _, test_ids = get_feats_labels_ids(create_features(df_test))
@@ -118,4 +118,4 @@ def train_and_dump_for_submitting():
             f.write(f"{test_ids[i]},{test_predict[i]}\n")
 
 main()
-#train_and_dump_for_submitting()
+# train_and_dump_for_submitting()
