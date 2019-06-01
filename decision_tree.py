@@ -19,30 +19,36 @@ LABELS = ['AUDIO',
     'VOICE_ASSISTANT',
     'GENERIC_IOT']
 
-def get_feats_labels(df):
-    feats = df.drop('device_class', axis=1)
-    labels = df['device_class']
-    return feats, labels
+def get_feats_labels_ids(df):
+    ids = df['device_id']
+    df = df.drop('device_id', axis=1)
+    if 'device_class' in df:
+        feats = df.drop('device_class', axis=1)
+        labels = df['device_class']
+    else:
+        feats = df
+        labels = []
+    return feats, labels, ids
 
 def get_data_for_submitting():
     df_train = util.load_data_to_dataframe('dataset/train.json')
     df_test = util.load_data_to_dataframe('dataset/test.json')
-    train_feats, train_labels = get_feats_labels(create_features(df_train))
-    test_feats, _ = get_feats_labels(create_features(df_test))
-    return train_feats, train_labels, test_feats
+    train_feats, train_labels, _ = get_feats_labels_ids(create_features(df_train))
+    test_feats, _, test_ids = get_feats_labels_ids(create_features(df_test))
+    return train_feats, train_labels, test_feats, test_ids
 
 def get_real_train_valid():
     df_train = util.load_data_to_dataframe('dataset/train_split_orig.json')
     df_val = util.load_data_to_dataframe('dataset/val_split_orig.json')
-    train_feats, train_labels = get_feats_labels(create_features(df_train))
-    val_feats, val_labels = get_feats_labels(create_features(df_val))
+    train_feats, train_labels, _ = get_feats_labels_ids(create_features(df_train))
+    val_feats, val_labels, _ = get_feats_labels_ids(create_features(df_val))
     return train_feats, train_labels, val_feats, val_labels
 
 def get_data():
     df = util.load_data_to_dataframe('dataset/train_split_orig.json')
     train, val = create_features_and_split(df)
-    train_feats, train_labels = get_feats_labels(train)
-    val_feats, val_labels = get_feats_labels(val)
+    train_feats, train_labels, _ = get_feats_labels_ids(train)
+    val_feats, val_labels, _ = get_feats_labels_ids(val)
     return train_feats, train_labels, val_feats, val_labels
 
 def plot_conf_matrix(cm):
@@ -94,12 +100,15 @@ def main():
 def train_and_dump_for_submitting():
     model = tree.DecisionTreeClassifier()
     print("getting data")
-    train_feats, train_labels, test_feats = get_data_for_submitting()
+    train_feats, train_labels, test_feats, test_ids = get_data_for_submitting()
     print("training")
     model.fit(train_feats, train_labels)
     print("predicting")
     test_predict = model.predict(test_feats)
-    zip(test_feats['device_id'], test_predict)
-
+    with open("out/subm.csv", 'w') as f:
+        f.write("Id,Predicted\n")
+        for i in range(len(test_predict)):
+            f.write(f"{test_ids[i]},{test_predict[i]}\n")
 
 main()
+#train_and_dump_for_submitting()
