@@ -25,6 +25,9 @@
     </Compile>
     <Compile Include="key_stats.py" />
     <Compile Include="util.py" />
+    <Compile Include="words.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>

@@ -112,3 +112,7 @@ val_split.json
 .DS_Store
 
 /.vs
+/excel rules 3.xlsx
+*.csv
+*.user
+*.xlsx
