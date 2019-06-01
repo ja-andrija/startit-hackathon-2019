@@ -82,8 +82,14 @@ def main():
     print(f"acc: {accuracy_score(val_labels, val_predict)}")
     print(f"f1s: {f1_score(val_labels, val_predict, average='micro')}")
     cm = confusion_matrix(val_labels, val_predict, labels=LABELS)
+
+    [x for x in zip(train_feats['device_id'], val_labels, val_predict)]
+
+    print(val_predict)
+
     plot_conf_matrix(cm)
     plt.show()
+    tree.export_graphviz(model, out_file='tree.dot', feature_names = train_feats.columns, class_names = LABELS)
 
 def train_and_dump_for_submitting():
     model = tree.DecisionTreeClassifier()
