@@ -1,3 +1,4 @@
+import csv
 import util
 from sklearn import tree
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
@@ -48,8 +49,8 @@ def get_data():
     df = util.load_data_to_dataframe('dataset/train_split_orig.json')
     train, val = create_features_and_split(df)
     train_feats, train_labels, _ = get_feats_labels_ids(train)
-    val_feats, val_labels, _ = get_feats_labels_ids(val)
-    return train_feats, train_labels, val_feats, val_labels
+    val_feats, val_labels, val_ids = get_feats_labels_ids(val)
+    return train_feats, train_labels, val_feats, val_labels, val_ids
 
 def plot_conf_matrix(cm):
     fig, ax = plt.subplots()
@@ -77,10 +78,17 @@ def plot_conf_matrix(cm):
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
 
+def output_diffs_to_csv(diffs):
+    with open('diffs.csv','w', newline='') as out:
+        csv_out=csv.writer(out)
+        csv_out.writerow(['id', 'label', 'predicted'])
+        for row in diffs:
+            csv_out.writerow(row)
+
 def main():
     model = tree.DecisionTreeClassifier()
     print("getting data")
-    train_feats, train_labels, val_feats, val_labels = get_data()
+    train_feats, train_labels, val_feats, val_labels, val_ids = get_data()
     print("training")
     model.fit(train_feats, train_labels)
     print("predicting")
@@ -89,9 +97,8 @@ def main():
     print(f"f1s: {f1_score(val_labels, val_predict, average='micro')}")
     cm = confusion_matrix(val_labels, val_predict, labels=LABELS)
 
-    [x for x in zip(train_feats['device_id'], val_labels, val_predict)]
-
-    print(val_predict)
+    diffs = [(id, label, predict) for (id, label, predict) in zip(val_ids, val_labels, val_predict) if label != predict]
+    output_diffs_to_csv(diffs)
 
     plot_conf_matrix(cm)
     plt.show()
