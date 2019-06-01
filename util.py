@@ -1,5 +1,6 @@
 import json
 import os
+import pandas
 import random
 
 test_pth = 'test.json'
@@ -12,6 +13,13 @@ def load_all_data(json_path):
     for line in lines:
         all_data.append(json.loads(line))
     return all_data
+
+def load_data_to_dataframe(json_path):
+    # read the entire file into a python array
+    with open(json_path, 'rb') as f:
+        data = f.readlines()
+        data = [json.loads(line) for line in data] #convert string to dict format
+        return pandas.DataFrame(data) #load into dataframe
 
 def write_json_to_file(j_object, file_path):
     with open(file_path, 'w') as fp:
