@@ -20,6 +20,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="data_exploration.py" />
+    <Compile Include="decision_tree.py" />
+    <Compile Include="dhcp_classify.py" />
     <Compile Include="features.py">
       <SubType>Code</SubType>
     </Compile>
