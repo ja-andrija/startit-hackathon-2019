@@ -5,6 +5,7 @@ import random
 from collections import defaultdict
 from sklearn.utils import resample
 import sys
+from operator import itemgetter
 
 test_pth = 'test.json'
 train_pth = 'train.json'
@@ -143,7 +144,13 @@ def create_mac_tokens():
     train_mac_set = get_mac_set('dataset/train.json')
     test_mac_set = get_mac_set('dataset/test.json')
     intersect = set(train_mac_set.keys()) & set(test_mac_set.keys())
-    tokenized = dict(list(enumerate(intersect)))
+    sum_mac = {}
+    for mac in intersect:
+        sum_mac[mac] = train_mac_set[mac] + test_mac_set[mac]
+    sum_mac = sorted(sum_mac.items(), key=itemgetter(1), reverse=True)
+    top_macs = sum_mac[:1000]
+    top_macs = [i[0] for i in top_macs]
+    tokenized = dict(list(enumerate(top_macs)))
     inv = {v: k for k, v in tokenized.items()}
     with open('dataset/mac_tokens.json', 'w') as f:
         json.dump(inv, f)

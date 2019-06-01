@@ -32,7 +32,7 @@ def get_feats_labels_ids(df):
     return feats, labels, ids
 
 def get_data_for_submitting():
-    df_train = util.load_data_to_dataframe('dataset/train.json')
+    df_train = util.load_data_to_dataframe('dataset/train.json', upsample=True)
     df_test = util.load_data_to_dataframe('dataset/test.json')
     train_feats, train_labels, _ = get_feats_labels_ids(create_features(df_train))
     test_feats, _, test_ids = get_feats_labels_ids(create_features(df_test))
@@ -88,7 +88,7 @@ def output_diffs_to_csv(diffs):
 def main():
     model = tree.DecisionTreeClassifier()
     print("getting data")
-    train_feats, train_labels, val_feats, val_labels, val_ids = get_data() # get_real_train_valid()
+    train_feats, train_labels, val_feats, val_labels, val_ids = get_real_train_valid() # get_data()
     print("training")
     model.fit(train_feats, train_labels)
     print("predicting")
@@ -118,4 +118,4 @@ def train_and_dump_for_submitting():
             f.write(f"{test_ids[i]},{test_predict[i]}\n")
 
 main()
-#train_and_dump_for_submitting()
+# train_and_dump_for_submitting()
