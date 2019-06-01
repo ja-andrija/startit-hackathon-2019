@@ -26,6 +26,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="key_stats.py" />
+    <Compile Include="port_exploration.py" />
     <Compile Include="util.py" />
     <Compile Include="words.py">
       <SubType>Code</SubType>

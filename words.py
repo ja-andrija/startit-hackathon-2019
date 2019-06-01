@@ -14,7 +14,7 @@ ImportantUpnpWords = [
     'DIAL',
     'microsoft',
     'Player',
-    'TV',
+    'TV ',
     'LG',
     'Philips',
     'Wireless',
@@ -65,7 +65,10 @@ ImportantUpnpWords = [
     'CANON',
     'Blu-ray',
     'Home',
-    'Google Home'
+    'Google Home',
+    'Roku Streaming Player',
+    'UTC',
+    'MediaRenderer'
 ]
 
 ImportantSsdpWords = [
