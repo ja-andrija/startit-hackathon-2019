@@ -65,9 +65,12 @@ def train():
     train_input, train_labels = get_one_hot_encoding('train_split.json')
     train_input = np.array(train_input)
     train_labels = np.array(train_labels)
+    val_input, val_labels = get_one_hot_encoding('val_split.json')
+    val_input = np.array(val_input)
+    val_labels = np.array(val_labels)
     model = create_model()
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    model.fit(x=train_input, y=train_labels, epochs= 10000)
+    model.fit(x=train_input, y=train_labels, epochs= 10, validation_data=(val_input, val_labels))
 
 if __name__ == "__main__":
     train()
