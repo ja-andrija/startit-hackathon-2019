@@ -5,8 +5,8 @@ import ast
 
 def create_features_and_split(all_data):
     featurized_dataframe = create_features(all_data)
-    split_dataframe = split_train_val_data(featurized_dataframe)
-    return split_dataframe
+    train_df, val_df = split_train_val_data(featurized_dataframe)
+    return train_df, val_df
 
 def mdns_to_token_appereance(mdns_list, mdns_tokens):
     appereance = np.zeros(len(mdns_tokens), dtype=int)
@@ -36,16 +36,23 @@ def create_features(all_data):
     df['mac_first_3_bytes'] = [mac[0:8] for mac in df['mac']]
 
     mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
-    
+
     return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'device_class'] + mdns_token_names_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
-    return featurized_dataframe
+    msk = np.random.rand(len(featurized_dataframe)) < 0.8
+    train = featurized_dataframe[msk]
+    val = featurized_dataframe[~msk]
+    return train, val
 
 
 # sanity checks
 df = util.load_data_to_dataframe('dataset/train.json')
-splitdf = create_features_and_split(df)
-print(splitdf.head(20))
-print(splitdf.groupby('device_class').sum())
+train, val = create_features_and_split(df)
+print(train.head(20))
+print(f"TRAIN: {len(train)}")
+print(train.groupby('device_class').sum())
+print(f"VAL: {len(val)}")
+print(val.groupby('device_class').sum())
+
