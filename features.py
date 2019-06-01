@@ -8,8 +8,7 @@ def create_features_and_split(all_data):
     split_dataframe = split_train_val_data(featurized_dataframe)
     return split_dataframe
 
-def mdns_to_token_appereance(mdns_list):
-    mdns_tokens = util.get_mdns_tokens()
+def mdns_to_token_appereance(mdns_list, mdns_tokens):
     appereance = np.zeros(len(mdns_tokens), dtype=int)
     if mdns_list == 'nan':
         return appereance
@@ -19,6 +18,15 @@ def mdns_to_token_appereance(mdns_list):
             appereance[mdns_tokens[mdns]] = 1
     return appereance.tolist()
 
+def add_mdns_tokens_get_token_names_list(df):
+    mdns_tokens = util.get_mdns_tokens()
+    mdns_tokens_df = [mdns_to_token_appereance(str(mdns_list), mdns_tokens) for mdns_list in df['mdns_services']]
+    mdns_token_names_list = []
+    for i in range(len(mdns_tokens)):
+        df[f'mdns_token_{i}'] = [mdns_tokens_list[i] for mdns_tokens_list in mdns_tokens_df]
+        mdns_token_names_list.append(f'mdns_token_{i}')
+    return mdns_token_names_list
+
 def create_features(all_data):
     df = pd.DataFrame(all_data) #load into dataframe
     
@@ -27,9 +35,9 @@ def create_features(all_data):
     df['has_mdns'] = df['mdns_services'].notna()
     df['mac_first_3_bytes'] = [mac[0:8] for mac in df['mac']]
 
-    df['mdns_tokens'] = [mdns_to_token_appereance(str(mdns_list)) for mdns_list in df['mdns_services']]
-
-    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'device_class', 'mdns_tokens']]
+    mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
+    
+    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'device_class'] + mdns_token_names_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
