@@ -123,3 +123,6 @@ val_split.json
 *.csv
 *.user
 *.xlsx
+/tree.png
+/tree.dot
+/dataset
