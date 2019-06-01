@@ -30,6 +30,22 @@ def add_mdns_tokens_get_token_names_list(df):
         mdns_token_names_list.append(f'mdns_token_{i}')
     return mdns_token_names_list
 
+def mac_to_token_appereance(mac, mac_tokens):
+    appereance = np.zeros(len(mac_tokens), dtype=int)
+    mac_first_3_bytes = mac[:8]
+    if mac_first_3_bytes in mac_tokens:
+        appereance[mac_tokens[mac_first_3_bytes]] = 1
+    return appereance.tolist()
+
+def add_mac_tokens_get_token_names_list(df):
+    mac_tokens = util.get_mac_tokens()
+    mac_tokens_df = [mac_to_token_appereance(mac, mac_tokens) for mac in df['mac']]
+    mac_token_names_list = []
+    for i in range(len(mac_tokens)):
+        df[f'mac_token_{i}'] = [mac_tokens_list[i] for mac_tokens_list in mac_tokens_df]
+        mac_token_names_list.append(f'mac_token_{i}')
+    return mac_token_names_list
+
 def mac_to_int(mac):
     mac = mac.split(":")
     mac = ''.join(mac[:3])
@@ -45,11 +61,12 @@ def create_features(all_data):
     df['mac_first_3_bytes'] = [mac_to_int(mac) for mac in df['mac']]
 
     mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
+    mac_token_names_list = add_mac_tokens_get_token_names_list(df)
     upnp_words_list = words.create_upnp_word_columns(df)
     dhcp_names = add_dhcp(df)
     ssdp_words_list = words.create_ssdp_word_columns(df)
     device_class_column = ['device_class'] if 'device_class' in df else []
-    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names]
+    return df[['has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names + mac_token_names_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
