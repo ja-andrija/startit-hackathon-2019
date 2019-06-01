@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+.vscode/
+
 # Distribution / packaging
 .Python
 build/
@@ -108,3 +110,5 @@ train.json
 train_split.json
 val_split.json
 .DS_Store
+
+/.vs
