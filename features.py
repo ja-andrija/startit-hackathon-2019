@@ -45,8 +45,9 @@ def create_features(all_data):
 
     mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
     upnp_words_list = words.create_upnp_word_columns(df)
+    ssdp_words_list = words.create_ssdp_word_columns(df)
     
-    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_class'] + mdns_token_names_list + upnp_words_list]
+    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_class'] + mdns_token_names_list + upnp_words_list + ssdp_words_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
@@ -56,8 +57,10 @@ def split_train_val_data(featurized_dataframe):
     return train, val
 
 # sanity checks
-# df = util.load_data_to_dataframe('dataset/train.json')
-# train, val = create_features_and_split(df)
+#df = util.load_data_to_dataframe('dataset/train.json')
+#train, val = create_features_and_split(df)
+#train.to_csv('sanity.csv')
+
 # print(train.head(20))
 # print(f"TRAIN: {len(train)}")
 # print(train.groupby('device_class').sum())
