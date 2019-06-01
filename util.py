@@ -31,12 +31,13 @@ def load_all_data(json_path):
         all_data.append(json.loads(line))
     return all_data
 
-def load_data_to_dataframe(json_path):
+def load_data_to_dataframe(json_path, upsample = False):
     # read the entire file into a python array
     with open(json_path, 'rb') as f:
         data = f.readlines()
         data = [json.loads(line) for line in data] #convert string to dict format
-        balance_dataset(data)
+        if upsample:
+            balance_dataset(data)
         return pandas.DataFrame(data) #load into dataframe
 
 
