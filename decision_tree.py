@@ -88,7 +88,7 @@ def output_diffs_to_csv(diffs):
 def main():
     model = tree.DecisionTreeClassifier()
     print("getting data")
-    train_feats, train_labels, val_feats, val_labels, val_ids = get_data() # get_real_train_valid()
+    train_feats, train_labels, val_feats, val_labels, val_ids = get_real_train_valid() # get_data()
     print("training")
     model.fit(train_feats, train_labels)
     print("predicting")
