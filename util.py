@@ -49,7 +49,7 @@ def split_train_val_without_changes(json_path, train_ratio = 0.8):
 	val_split = data[train_split_len:]
 	with open('train_split_orig.json', 'w') as f:
 		f.writelines(train_split)
-	with open('val_split.json_orig', 'w') as f:
+	with open('val_split_orig.json', 'w') as f:
 		f.writelines(val_split)
 
 def make_tokens(in_json, out_json):
