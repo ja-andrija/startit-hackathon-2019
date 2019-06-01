@@ -42,7 +42,7 @@ def mac_to_int(mac):
     return int(mac, 16)
 
 def add_port_list(df):
-    ports_to_add = ['5353', '80', '1900', '443', '445', '8080', '139']
+    ports_to_add = ['5353', '80', '1900', '443', '445', '8080', '139', '515']
     for port in ports_to_add:
         df[port] = df.apply(lambda x: contains_port(x, int(port)), axis=1)
     return ports_to_add

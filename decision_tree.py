@@ -42,8 +42,8 @@ def get_real_train_valid():
     df_train = util.load_data_to_dataframe('dataset/train_split_orig.json', upsample = True)
     df_val = util.load_data_to_dataframe('dataset/val_split_orig.json')
     train_feats, train_labels, _ = get_feats_labels_ids(create_features(df_train))
-    val_feats, val_labels, _ = get_feats_labels_ids(create_features(df_val))
-    return train_feats, train_labels, val_feats, val_labels
+    val_feats, val_labels, val_ids = get_feats_labels_ids(create_features(df_val))
+    return train_feats, train_labels, val_feats, val_labels, val_ids
 
 def get_data():
     df = util.load_data_to_dataframe('dataset/train_split_orig.json')
@@ -88,7 +88,7 @@ def output_diffs_to_csv(diffs):
 def main():
     model = tree.DecisionTreeClassifier()
     print("getting data")
-    train_feats, train_labels, val_feats, val_labels = get_real_train_valid()
+    train_feats, train_labels, val_feats, val_labels, val_ids = get_data() # get_real_train_valid()
     print("training")
     model.fit(train_feats, train_labels)
     print("predicting")
@@ -97,8 +97,8 @@ def main():
     print(f"f1s: {f1_score(val_labels, val_predict, average='micro')}")
     cm = confusion_matrix(val_labels, val_predict, labels=LABELS)
 
-    # diffs = [(id, label, predict) for (id, label, predict) in zip(val_ids, val_labels, val_predict) if label != predict]
-    # output_diffs_to_csv(diffs)
+    diffs = [(id, label, predict) for (id, label, predict) in zip(val_ids, val_labels, val_predict) if label != predict]
+    output_diffs_to_csv(diffs)
 
     plot_conf_matrix(cm)
     plt.show()
