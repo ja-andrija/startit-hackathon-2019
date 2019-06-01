@@ -152,9 +152,9 @@ def get_mac_tokens():
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset", "mac_tokens.json")) as f:
         mac_tokens = json.load(f)
     return mac_tokens
-	with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "stats_out", "mdns_tokens.json")) as f:
-		mdns_tokens = json.load(f)
-	return mdns_tokens
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "stats_out", "mdns_tokens.json")) as f:
+        mdns_tokens = json.load(f)
+    return mdns_tokens
 
 def enumerate_dhcp_classid():
     class_ids = set()
