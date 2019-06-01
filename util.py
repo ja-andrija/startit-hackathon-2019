@@ -17,6 +17,10 @@ def write_json_to_file(j_object, file_path):
     with open(file_path, 'w') as fp:
         json.dump(j_object, fp)
 
+def read_proper_json_from_file(json_path):
+    with open(json_path, 'r') as fp:
+        return json.load(fp)
+
 def split_train_val(json_path, train_ratio = 0.8):
     data = load_all_data(json_path)
     random.seed(42)
