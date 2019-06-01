@@ -36,13 +36,29 @@ def add_mdns_tokens_get_token_names_list(df):
         mdns_token_names_list.append(f'mdns_token_{i}')
     return mdns_token_names_list
 
+def mac_to_token_appereance(mac, mac_tokens):
+    appereance = np.zeros(len(mac_tokens), dtype=int)
+    mac_first_3_bytes = mac[:8]
+    if mac_first_3_bytes in mac_tokens:
+        appereance[mac_tokens[mac_first_3_bytes]] = 1
+    return appereance.tolist()
+
+def add_mac_tokens_get_token_names_list(df):
+    mac_tokens = util.get_mac_tokens()
+    mac_tokens_df = [mac_to_token_appereance(mac, mac_tokens) for mac in df['mac']]
+    mac_token_names_list = []
+    for i in range(len(mac_tokens)):
+        df[f'mac_token_{i}'] = [mac_tokens_list[i] for mac_tokens_list in mac_tokens_df]
+        mac_token_names_list.append(f'mac_token_{i}')
+    return mac_token_names_list
+
 def mac_to_int(mac):
     mac = mac.split(":")
     mac = ''.join(mac[:3])
     return int(mac, 16)
 
 def add_port_list(df):
-    ports_to_add = ['5353', '80', '1900', '443', '445', '8080', '139']
+    ports_to_add = ['5353', '80', '1900', '443', '445', '8080', '139', '515']
     for port in ports_to_add:
         df[port] = df.apply(lambda x: contains_port(x, int(port)), axis=1)
     return ports_to_add
@@ -59,6 +75,7 @@ def create_features(all_data):
     port_list = add_port_list(df)
 
     mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
+    mac_token_names_list = add_mac_tokens_get_token_names_list(df)
     upnp_words_list = words.create_upnp_word_columns(df)
 
     dhcp_names = add_dhcp(df)
