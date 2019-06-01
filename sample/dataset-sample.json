@@ -1,8 +1,490 @@
-{"mac": "78:bd:bc:30:83:67", "ip": "192.168.0.12", "services": [{"port": 68, "protocol": "udp"}, {"port": 1900, "protocol": "udp"}, {"port": 5350, "protocol": "udp"}, {"port": 5353, "protocol": "udp"}, {"port": 7676, "protocol": "tcp"}, {"port": 7677, "protocol": "tcp"}, {"port": 7678, "protocol": "tcp"}, {"port": 9197, "protocol": "tcp"}], "upnp": [{"model_name": "UE40JU6000", "model_description": "Samsung DTV RCR", "manufacturer": "Samsung Electronics", "device_type": "urn:samsung.com:device:RemoteControlReceiver:1", "services": ["urn:samsung.com:serviceId:MultiScreenService"]}, {"model_name": "Samsung DTV MainTVServer2", "model_description": "Samsung DTV MainTVServer2", "manufacturer": "Samsung Electronics", "device_type": "urn:samsung.com:device:MainTVServer2:1", "services": ["urn:samsung.com:serviceId:MainTVAgent2"]}, {"model_name": "UE40JU6000", "model_description": "Samsung DTV RCR", "manufacturer": "Samsung Electronics", "device_type": "urn:dial-multiscreen-org:device:dialreceiver:1", "services": ["urn:dial-multiscreen-org:serviceId:dial"]}, {"model_name": "UE40JU6000", "model_description": "Samsung TV DMR", "manufacturer": "Samsung Electronics", "device_type": "urn:schemas-upnp-org:device:MediaRenderer:1", "services": ["urn:upnp-org:serviceId:RenderingControl", "urn:upnp-org:serviceId:ConnectionManager", "urn:upnp-org:serviceId:AVTransport"]}], "device_class": "TV", "device_id": "4f3da75c-f6a7-4a19-b5bb-dcb8db930103"}
-{"mac": "74:d4:35:04:84:f2", "ip": "192.168.1.54", "services": [{"port": 135, "protocol": "tcp"}, {"port": 1900, "protocol": "udp"}, {"port": 2869, "protocol": "tcp"}, {"port": 5357, "protocol": "tcp"}], "dhcp": [{"paramlist": "1,15,3,6,44,46,47,31,33,121,249,43,252", "classid": "MSFT 5.0"}], "upnp": [{"model_name": "Windows Media Player Sharing", "manufacturer": "Microsoft Corporation", "device_type": "urn:schemas-upnp-org:device:MediaServer:1", "services": ["urn:upnp-org:serviceId:ConnectionManager", "urn:upnp-org:serviceId:ContentDirectory", "urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar"]}], "device_class": "PC", "device_id": "074dccdc-f9e0-4cb4-9753-e47d254d3058"}
-{"mac": "00:11:32:38:75:0c", "ip": "192.168.1.51", "services": [{"port": 80, "protocol": "tcp"}, {"port": 139, "protocol": "tcp"}, {"port": 161, "protocol": "tcp"}, {"port": 443, "protocol": "tcp"}, {"port": 445, "protocol": "tcp"}, {"port": 1900, "protocol": "udp"}, {"port": 3262, "protocol": "tcp"}, {"port": 5000, "protocol": "tcp"}, {"port": 5000, "protocol": "tcp"}, {"port": 5001, "protocol": "tcp"}, {"port": 5353, "protocol": "udp"}, {"port": 6690, "protocol": "tcp"}], "upnp": [{"model_name": "DS415play", "model_description": "Synology NAS", "manufacturer": "Synology", "device_type": "urn:schemas-upnp-org:device:Basic:1", "services": ["urn:dummy-com:serviceId:dummy1"]}], "device_class": "NAS", "device_id": "0d7c452e-5593-4124-9ed8-683cb1e9f6cd", "mdns_services": ["_device-info._tcp.local.", "_smb._tcp.local.", "_workstation._tcp.local."]}
-{"mac": "00:17:88:65:07:cc", "ip": "192.168.178.63", "services": [{"port": 80, "protocol": "tcp"}, {"port": 80, "protocol": "tcp"}, {"port": 427, "protocol": "udp"}, {"port": 443, "protocol": "tcp"}, {"port": 500, "protocol": "udp"}, {"port": 1900, "protocol": "udp"}, {"port": 5353, "protocol": "udp"}, {"port": 5431, "protocol": "udp"}, {"port": 8080, "protocol": "tcp"}], "upnp": [{"model_name": "Philips hue bridge 2015", "model_description": "Philips hue Personal Wireless Lighting", "manufacturer": "Royal Philips Electronics", "device_type": "urn:schemas-upnp-org:device:Basic:1", "services": []}], "ssdp": [{"st": "", "nt": "upnp:rootdevice", "location": "http://192.168.178.63:80/description.xml", "server": "Linux/3.14.0 UPnP/1.0 IpBridge/1.29.0", "user_agent": "", "method": ""}, {"st": "", "nt": "uuid:2f402f80-da50-11e1-9b23-001788650752", "location": "http://192.168.178.63:80/description.xml", "server": "Linux/3.14.0 UPnP/1.0 IpBridge/1.29.0", "user_agent": "", "method": ""}, {"st": "", "nt": "urn:schemas-upnp-org:device:basic:1", "location": "http://192.168.178.63:80/description.xml", "server": "Linux/3.14.0 UPnP/1.0 IpBridge/1.29.0", "user_agent": "", "method": ""}], "device_class": "HOME_AUTOMATION", "device_id": "50e1f714-113b-4420-a68b-2c3179b31f88"}
-{"mac": "00:80:f0:c0:3e:f4", "ip": "192.168.1.253", "services": [{"port": 554, "protocol": "tcp"}, {"port": 1900, "protocol": "tcp"}, {"port": 1900, "protocol": "udp"}], "upnp": [{"model_name": "Network Camera", "model_description": "Panasonic Network Camera", "manufacturer": "Panasonic", "device_type": "urn:schemas-upnp-org:device:Basic:1", "services": ["urn:panasonic-com:serviceId:p01NetCamService1"]}], "device_class": "SURVEILLANCE", "device_id": "a71ac399-af2a-45d1-b59e-88693b04ba67"}
-{"mac": "3c:d9:2b:18:3f:23", "ip": "192.168.1.61", "services": [{"port": 135, "protocol": "tcp"}, {"port": 139, "protocol": "tcp"}, {"port": 445, "protocol": "tcp"}], "dhcp": [{"paramlist": "1,15,3,6,44,46,47,31,33,121,249,43", "classid": "MSFT 5.0"}], "ssdp": [{"st": "urn:dial-multiscreen-org:service:dial:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "Google Chrome/72.0.3626.109 Windows", "method": ""}, {"st": "urn:schemas-upnp-org:device:InternetGatewayDevice:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "", "method": ""}, {"st": "urn:dial-multiscreen-org:service:dial:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "Google Chrome/72.0.3626.119 Windows", "method": ""}, {"st": "urn:schemas-upnp-org:device:InternetGatewayDevice:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "", "method": ""}, {"st": "urn:dial-multiscreen-org:service:dial:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "Google Chrome/72.0.3626.109 Windows", "method": ""}], "device_class": "PC", "device_id": "fb09964b-cf9c-48cc-b8ec-76baccc337c5"}
-{"mac": "38:a4:ed:f8:be:c3", "ip": "192.168.100.3", "dhcp": [{"paramlist": "1,3,6,15,26,28,51,58,59", "classid": "android-dhcp-6.0.1"}], "ssdp": [{"st": "urn:dial-multiscreen-org:service:dial:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "", "method": ""}, {"st": "urn:schemas-upnp-org:service:WANPPPConnection:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "", "method": ""}, {"st": "urn:schemas-upnp-org:service:WANIPConnection:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "", "method": ""}, {"st": "urn:dial-multiscreen-org:service:dial:1", "nt": "M-SEARCH", "location": "", "server": "", "user_agent": "", "method": ""}], "device_class": "MOBILE", "device_id": "7ec6b47b-772d-4eab-919e-e22d0316385b"}
-{"mac": "00:26:73:e5:f7:bb", "ip": "192.168.1.98", "services": [{"port": 21, "protocol": "tcp"}, {"port": 80, "protocol": "tcp"}, {"port": 111, "protocol": "tcp"}, {"port": 139, "protocol": "tcp"}, {"port": 443, "protocol": "tcp"}, {"port": 514, "protocol": "tcp"}, {"port": 515, "protocol": "tcp"}, {"port": 631, "protocol": "tcp"}, {"port": 1900, "protocol": "udp"}, {"port": 5353, "protocol": "udp"}, {"port": 8080, "protocol": "tcp"}, {"port": 9100, "protocol": "tcp"}], "upnp": [{"model_name": "MP C2004ex", "manufacturer": "RICOH", "device_type": "urn:schemas-bmlinks-jp:device:bmlinks:1", "services": []}], "device_class": "PRINTER", "device_id": "8243a11d-be85-4f84-b749-e82d148acd00", "mdns_services": ["_ipp._tcp.local.", "_printer._tcp.local.", "_ipps._tcp.local.", "_uscan._tcp.local.", "_pdl-datastream._tcp.local.", "_http._tcp.local."]}
+{
+    "mac": "78:bd:bc:30:83:67",
+    "ip": "192.168.0.12",
+    "services": [
+        {
+            "port": 68,
+            "protocol": "udp"
+        },
+        {
+            "port": 1900,
+            "protocol": "udp"
+        },
+        {
+            "port": 5350,
+            "protocol": "udp"
+        },
+        {
+            "port": 5353,
+            "protocol": "udp"
+        },
+        {
+            "port": 7676,
+            "protocol": "tcp"
+        },
+        {
+            "port": 7677,
+            "protocol": "tcp"
+        },
+        {
+            "port": 7678,
+            "protocol": "tcp"
+        },
+        {
+            "port": 9197,
+            "protocol": "tcp"
+        }
+    ],
+    "upnp": [
+        {
+            "model_name": "UE40JU6000",
+            "model_description": "Samsung DTV RCR",
+            "manufacturer": "Samsung Electronics",
+            "device_type": "urn:samsung.com:device:RemoteControlReceiver:1",
+            "services": [
+                "urn:samsung.com:serviceId:MultiScreenService"
+            ]
+        },
+        {
+            "model_name": "Samsung DTV MainTVServer2",
+            "model_description": "Samsung DTV MainTVServer2",
+            "manufacturer": "Samsung Electronics",
+            "device_type": "urn:samsung.com:device:MainTVServer2:1",
+            "services": [
+                "urn:samsung.com:serviceId:MainTVAgent2"
+            ]
+        },
+        {
+            "model_name": "UE40JU6000",
+            "model_description": "Samsung DTV RCR",
+            "manufacturer": "Samsung Electronics",
+            "device_type": "urn:dial-multiscreen-org:device:dialreceiver:1",
+            "services": [
+                "urn:dial-multiscreen-org:serviceId:dial"
+            ]
+        },
+        {
+            "model_name": "UE40JU6000",
+            "model_description": "Samsung TV DMR",
+            "manufacturer": "Samsung Electronics",
+            "device_type": "urn:schemas-upnp-org:device:MediaRenderer:1",
+            "services": [
+                "urn:upnp-org:serviceId:RenderingControl",
+                "urn:upnp-org:serviceId:ConnectionManager",
+                "urn:upnp-org:serviceId:AVTransport"
+            ]
+        }
+    ],
+    "device_class": "TV",
+    "device_id": "4f3da75c-f6a7-4a19-b5bb-dcb8db930103"
+}
+{
+    "mac": "74:d4:35:04:84:f2",
+    "ip": "192.168.1.54",
+    "services": [
+        {
+            "port": 135,
+            "protocol": "tcp"
+        },
+        {
+            "port": 1900,
+            "protocol": "udp"
+        },
+        {
+            "port": 2869,
+            "protocol": "tcp"
+        },
+        {
+            "port": 5357,
+            "protocol": "tcp"
+        }
+    ],
+    "dhcp": [
+        {
+            "paramlist": "1,15,3,6,44,46,47,31,33,121,249,43,252",
+            "classid": "MSFT 5.0"
+        }
+    ],
+    "upnp": [
+        {
+            "model_name": "Windows Media Player Sharing",
+            "manufacturer": "Microsoft Corporation",
+            "device_type": "urn:schemas-upnp-org:device:MediaServer:1",
+            "services": [
+                "urn:upnp-org:serviceId:ConnectionManager",
+                "urn:upnp-org:serviceId:ContentDirectory",
+                "urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar"
+            ]
+        }
+    ],
+    "device_class": "PC",
+    "device_id": "074dccdc-f9e0-4cb4-9753-e47d254d3058"
+}
+{
+    "mac": "00:11:32:38:75:0c",
+    "ip": "192.168.1.51",
+    "services": [
+        {
+            "port": 80,
+            "protocol": "tcp"
+        },
+        {
+            "port": 139,
+            "protocol": "tcp"
+        },
+        {
+            "port": 161,
+            "protocol": "tcp"
+        },
+        {
+            "port": 443,
+            "protocol": "tcp"
+        },
+        {
+            "port": 445,
+            "protocol": "tcp"
+        },
+        {
+            "port": 1900,
+            "protocol": "udp"
+        },
+        {
+            "port": 3262,
+            "protocol": "tcp"
+        },
+        {
+            "port": 5000,
+            "protocol": "tcp"
+        },
+        {
+            "port": 5000,
+            "protocol": "tcp"
+        },
+        {
+            "port": 5001,
+            "protocol": "tcp"
+        },
+        {
+            "port": 5353,
+            "protocol": "udp"
+        },
+        {
+            "port": 6690,
+            "protocol": "tcp"
+        }
+    ],
+    "upnp": [
+        {
+            "model_name": "DS415play",
+            "model_description": "Synology NAS",
+            "manufacturer": "Synology",
+            "device_type": "urn:schemas-upnp-org:device:Basic:1",
+            "services": [
+                "urn:dummy-com:serviceId:dummy1"
+            ]
+        }
+    ],
+    "device_class": "NAS",
+    "device_id": "0d7c452e-5593-4124-9ed8-683cb1e9f6cd",
+    "mdns_services": [
+        "_device-info._tcp.local.",
+        "_smb._tcp.local.",
+        "_workstation._tcp.local."
+    ]
+}
+{
+    "mac": "00:17:88:65:07:cc",
+    "ip": "192.168.178.63",
+    "services": [
+        {
+            "port": 80,
+            "protocol": "tcp"
+        },
+        {
+            "port": 80,
+            "protocol": "tcp"
+        },
+        {
+            "port": 427,
+            "protocol": "udp"
+        },
+        {
+            "port": 443,
+            "protocol": "tcp"
+        },
+        {
+            "port": 500,
+            "protocol": "udp"
+        },
+        {
+            "port": 1900,
+            "protocol": "udp"
+        },
+        {
+            "port": 5353,
+            "protocol": "udp"
+        },
+        {
+            "port": 5431,
+            "protocol": "udp"
+        },
+        {
+            "port": 8080,
+            "protocol": "tcp"
+        }
+    ],
+    "upnp": [
+        {
+            "model_name": "Philips hue bridge 2015",
+            "model_description": "Philips hue Personal Wireless Lighting",
+            "manufacturer": "Royal Philips Electronics",
+            "device_type": "urn:schemas-upnp-org:device:Basic:1",
+            "services": []
+        }
+    ],
+    "ssdp": [
+        {
+            "st": "",
+            "nt": "upnp:rootdevice",
+            "location": "http://192.168.178.63:80/description.xml",
+            "server": "Linux/3.14.0 UPnP/1.0 IpBridge/1.29.0",
+            "user_agent": "",
+            "method": ""
+        },
+        {
+            "st": "",
+            "nt": "uuid:2f402f80-da50-11e1-9b23-001788650752",
+            "location": "http://192.168.178.63:80/description.xml",
+            "server": "Linux/3.14.0 UPnP/1.0 IpBridge/1.29.0",
+            "user_agent": "",
+            "method": ""
+        },
+        {
+            "st": "",
+            "nt": "urn:schemas-upnp-org:device:basic:1",
+            "location": "http://192.168.178.63:80/description.xml",
+            "server": "Linux/3.14.0 UPnP/1.0 IpBridge/1.29.0",
+            "user_agent": "",
+            "method": ""
+        }
+    ],
+    "device_class": "HOME_AUTOMATION",
+    "device_id": "50e1f714-113b-4420-a68b-2c3179b31f88"
+}
+{
+    "mac": "00:80:f0:c0:3e:f4",
+    "ip": "192.168.1.253",
+    "services": [
+        {
+            "port": 554,
+            "protocol": "tcp"
+        },
+        {
+            "port": 1900,
+            "protocol": "tcp"
+        },
+        {
+            "port": 1900,
+            "protocol": "udp"
+        }
+    ],
+    "upnp": [
+        {
+            "model_name": "Network Camera",
+            "model_description": "Panasonic Network Camera",
+            "manufacturer": "Panasonic",
+            "device_type": "urn:schemas-upnp-org:device:Basic:1",
+            "services": [
+                "urn:panasonic-com:serviceId:p01NetCamService1"
+            ]
+        }
+    ],
+    "device_class": "SURVEILLANCE",
+    "device_id": "a71ac399-af2a-45d1-b59e-88693b04ba67"
+}
+{
+    "mac": "3c:d9:2b:18:3f:23",
+    "ip": "192.168.1.61",
+    "services": [
+        {
+            "port": 135,
+            "protocol": "tcp"
+        },
+        {
+            "port": 139,
+            "protocol": "tcp"
+        },
+        {
+            "port": 445,
+            "protocol": "tcp"
+        }
+    ],
+    "dhcp": [
+        {
+            "paramlist": "1,15,3,6,44,46,47,31,33,121,249,43",
+            "classid": "MSFT 5.0"
+        }
+    ],
+    "ssdp": [
+        {
+            "st": "urn:dial-multiscreen-org:service:dial:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "Google Chrome/72.0.3626.109 Windows",
+            "method": ""
+        },
+        {
+            "st": "urn:schemas-upnp-org:device:InternetGatewayDevice:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "",
+            "method": ""
+        },
+        {
+            "st": "urn:dial-multiscreen-org:service:dial:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "Google Chrome/72.0.3626.119 Windows",
+            "method": ""
+        },
+        {
+            "st": "urn:schemas-upnp-org:device:InternetGatewayDevice:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "",
+            "method": ""
+        },
+        {
+            "st": "urn:dial-multiscreen-org:service:dial:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "Google Chrome/72.0.3626.109 Windows",
+            "method": ""
+        }
+    ],
+    "device_class": "PC",
+    "device_id": "fb09964b-cf9c-48cc-b8ec-76baccc337c5"
+}
+{
+    "mac": "38:a4:ed:f8:be:c3",
+    "ip": "192.168.100.3",
+    "dhcp": [
+        {
+            "paramlist": "1,3,6,15,26,28,51,58,59",
+            "classid": "android-dhcp-6.0.1"
+        }
+    ],
+    "ssdp": [
+        {
+            "st": "urn:dial-multiscreen-org:service:dial:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "",
+            "method": ""
+        },
+        {
+            "st": "urn:schemas-upnp-org:service:WANPPPConnection:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "",
+            "method": ""
+        },
+        {
+            "st": "urn:schemas-upnp-org:service:WANIPConnection:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "",
+            "method": ""
+        },
+        {
+            "st": "urn:dial-multiscreen-org:service:dial:1",
+            "nt": "M-SEARCH",
+            "location": "",
+            "server": "",
+            "user_agent": "",
+            "method": ""
+        }
+    ],
+    "device_class": "MOBILE",
+    "device_id": "7ec6b47b-772d-4eab-919e-e22d0316385b"
+}
+{
+    "mac": "00:26:73:e5:f7:bb",
+    "ip": "192.168.1.98",
+    "services": [
+        {
+            "port": 21,
+            "protocol": "tcp"
+        },
+        {
+            "port": 80,
+            "protocol": "tcp"
+        },
+        {
+            "port": 111,
+            "protocol": "tcp"
+        },
+        {
+            "port": 139,
+            "protocol": "tcp"
+        },
+        {
+            "port": 443,
+            "protocol": "tcp"
+        },
+        {
+            "port": 514,
+            "protocol": "tcp"
+        },
+        {
+            "port": 515,
+            "protocol": "tcp"
+        },
+        {
+            "port": 631,
+            "protocol": "tcp"
+        },
+        {
+            "port": 1900,
+            "protocol": "udp"
+        },
+        {
+            "port": 5353,
+            "protocol": "udp"
+        },
+        {
+            "port": 8080,
+            "protocol": "tcp"
+        },
+        {
+            "port": 9100,
+            "protocol": "tcp"
+        }
+    ],
+    "upnp": [
+        {
+            "model_name": "MP C2004ex",
+            "manufacturer": "RICOH",
+            "device_type": "urn:schemas-bmlinks-jp:device:bmlinks:1",
+            "services": []
+        }
+    ],
+    "device_class": "PRINTER",
+    "device_id": "8243a11d-be85-4f84-b749-e82d148acd00",
+    "mdns_services": [
+        "_ipp._tcp.local.",
+        "_printer._tcp.local.",
+        "_ipps._tcp.local.",
+        "_uscan._tcp.local.",
+        "_pdl-datastream._tcp.local.",
+        "_http._tcp.local."
+    ]
+}
