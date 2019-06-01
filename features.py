@@ -27,17 +27,23 @@ def add_mdns_tokens_get_token_names_list(df):
         mdns_token_names_list.append(f'mdns_token_{i}')
     return mdns_token_names_list
 
+def mac_to_int(mac):
+    mac = mac.split(":")
+    mac = ''.join(mac[:3])
+    return int(mac, 16)
+
 def create_features(all_data):
     df = pd.DataFrame(all_data) #load into dataframe
     
     df['has_upnp'] = df['upnp'].notna()
     df['has_ssdp'] = df['ssdp'].notna()
     df['has_mdns'] = df['mdns_services'].notna()
-    df['mac_first_3_bytes'] = [mac[0:8] for mac in df['mac']]
+    df['has_dhcp'] = df['dhcp'].notna()
+    df['mac_first_3_bytes'] = [mac_to_int(mac) for mac in df['mac']]
 
     mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
 
-    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'device_class'] + mdns_token_names_list]
+    return df[['mac_first_3_bytes', 'has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_class'] + mdns_token_names_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
@@ -48,11 +54,10 @@ def split_train_val_data(featurized_dataframe):
 
 
 # sanity checks
-df = util.load_data_to_dataframe('dataset/train.json')
-train, val = create_features_and_split(df)
-print(train.head(20))
-print(f"TRAIN: {len(train)}")
-print(train.groupby('device_class').sum())
-print(f"VAL: {len(val)}")
-print(val.groupby('device_class').sum())
-
+# df = util.load_data_to_dataframe('dataset/train.json')
+# train, val = create_features_and_split(df)
+# print(train.head(20))
+# print(f"TRAIN: {len(train)}")
+# print(train.groupby('device_class').sum())
+# print(f"VAL: {len(val)}")
+# print(val.groupby('device_class').sum())
