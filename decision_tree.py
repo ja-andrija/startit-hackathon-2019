@@ -104,5 +104,5 @@ def train_and_dump_for_submitting():
         for i in range(len(test_predict)):
             f.write(f"{test_ids[i]},{test_predict[i]}\n")
 
-# main()
-train_and_dump_for_submitting()
+main()
+#train_and_dump_for_submitting()
