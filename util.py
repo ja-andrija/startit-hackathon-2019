@@ -95,7 +95,7 @@ def read_proper_json_from_file(json_path):
     with open(json_path, 'r') as fp:
         return json.load(fp)
 
-def split_train_val(json_path, train_ratio = 0.8):
+def split_train_val(json_path, train_ratio = 0.4):
     data = load_all_data(json_path)
     random.seed(42)
     random.shuffle(data)
@@ -103,9 +103,9 @@ def split_train_val(json_path, train_ratio = 0.8):
     train_split = data[:train_split_len]
     val_split = data[train_split_len:]
     write_json_to_file(train_split, 'train_split.json')
-    write_json_to_file(val_split, 'val_split.json')
+    write_json_to_file(val_split, 'val_test_split.json')
 
-def split_train_val_without_changes(json_path, train_ratio = 0.8):
+def split_train_val_without_changes(json_path, train_ratio = 0.4):
     with open(json_path, 'r') as fp:
         data = fp.readlines()
     random.seed(42)
@@ -113,9 +113,9 @@ def split_train_val_without_changes(json_path, train_ratio = 0.8):
     train_split_len = int(len(data) * train_ratio)
     train_split = data[:train_split_len]
     val_split = data[train_split_len:]
-    with open('train_split_orig.json', 'w') as f:
+    with open('dataset/train_split.json', 'w') as f:
         f.writelines(train_split)
-    with open('val_split_orig.json', 'w') as f:
+    with open('dataset/val_test_split.json', 'w') as f:
         f.writelines(val_split)
 
 def make_tokens(in_json, out_json):
@@ -180,3 +180,5 @@ def get_dhcp_classid_tokens():
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "stats_out", r'C:\Users\vr1\startit-hackathon-2019\tockenized.json')) as f:
         dhcp_classid_tokens = json.load(f)
     return dhcp_classid_tokens
+
+#split_train_val_without_changes('dataset/train.json', train_ratio = 0.8)

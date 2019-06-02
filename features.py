@@ -89,6 +89,15 @@ def create_features(all_data):
     device_class_column = ['device_class'] if 'device_class' in df else []
     return df[['has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id', 'open_port_count'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names + port_list + mac_token_names_list]
 
+'''    selected_columns = np.array(pd.read_csv('selected_columns.csv').values).flatten().tolist()
+    if 'device_class' not in df:
+        selected_columns.remove('device_class')
+    return all_features[selected_columns]'''
+    #feature_scores = pd.read_csv('feature_importance.csv')
+    #top_features=feature_scores.nlargest(378,'Score')
+    #top_features_list = top_features['Specs'].values.tolist()
+    #return all_features[top_features_list + device_class_column + ['device_id']]
+
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here
     msk = np.random.rand(len(featurized_dataframe)) < 0.8

@@ -1,10 +1,18 @@
 import util
+import features
+import pandas as pd
 from features import create_features_and_split, create_features
 from sklearn.model_selection import KFold
 from sklearn import tree
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 import numpy as np
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier, AdaBoostClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
+from keras_model import KerasModel
+
+def filterout_mac_features(df):
+    return df
 
 # PART 1 GET DATA
 def get_feats_labels_ids(df):
@@ -19,39 +27,41 @@ def get_feats_labels_ids(df):
     return feats, labels, ids
 
 def get_data():
-    df = util.load_data_to_dataframe('dataset/train_split_orig.json')
-    train, val = create_features_and_split(df)
+    #df = util.load_data_to_dataframe('dataset/train_split.json')
+    #featurized_dataframe = create_features(df)
+    #featurized_dataframe.to_csv('cache/train_split.csv', index=False)
+    featurized_dataframe = filterout_mac_features(pd.read_csv('cache/train_split.csv'))
+    train, val = features.split_train_val_data(featurized_dataframe)
     train_feats, train_labels, _ = get_feats_labels_ids(train)
     val_feats, val_labels, val_ids = get_feats_labels_ids(val)
     return train_feats, train_labels, val_feats, val_labels
 
 def get_real_data():
-    df = util.load_data_to_dataframe('dataset/val_split_orig.json')
-    unseen_test = create_features(df)
+    #df = util.load_data_to_dataframe('dataset/val_test_split.json')
+    #unseen_test = create_features(df)
+    #unseen_test.to_csv('cache/val_test_split.csv', index=False)
+    unseen_test = filterout_mac_features(pd.read_csv('cache/val_test_split.csv'))
     train_feats, train_labels, _ = get_feats_labels_ids(unseen_test)
     return train_feats, train_labels
 
 X, Y, X_test, Y_test = get_data()
 
 # PART 2 FIT MODEL
-k = 5
+k = 2
 
 models = [None]*k
-models[0] = tree.DecisionTreeClassifier() 
-models[1] = GradientBoostingClassifier(verbose=True, n_estimators=20, learning_rate = 0.1, max_features=20, max_depth = 10, random_state = 0)
-models[2] = RandomForestClassifier(verbose=True, n_jobs=2, random_state=0)
-models[3] = AdaBoostClassifier(n_estimators=50, learning_rate=0.1)
-models[4] = tree.DecisionTreeClassifier()
+#models[0] = tree.DecisionTreeClassifier() 
+models[1] = RandomForestClassifier(verbose=True, n_jobs=2, random_state=42, n_estimators=300)
+models[0] = KerasModel()
 
 kf = KFold(n_splits = k, shuffle = True, random_state = 2)
 i = 0
 for train_index, valid_index in kf.split(X):
-    print("TRAIN:", train_index, "VALIDATE:", valid_index)
     X_train, X_val = X.iloc[train_index], X.iloc[valid_index]
     y_train, y_val = Y.iloc[train_index], Y.iloc[valid_index]
     models[i].fit(X_train, y_train)
     
-    print("predicting")
+    print("predicting on kfold validation")
     val_predict = models[i].predict(X_val)
     print(f"f1s: {f1_score(y_val, val_predict, average='micro')}")
     i += 1
@@ -65,7 +75,7 @@ for i in range(k):
 test_aggregate = test_aggregate / k
 test_ids = np.argmax(test_aggregate, axis=1)
 
-classes = models[0].classes_
+classes = models[1].classes_
 test_predictions = list(map(lambda x: classes[x], test_ids))
 print(f"Average f1s: {f1_score(Y_test, test_predictions, average='micro')}")
 
@@ -79,14 +89,16 @@ for i in range(k):
 test_aggregate = test_aggregate / k
 test_ids = np.argmax(test_aggregate, axis=1)
 
-classes = models[0].classes_
 test_predictions = list(map(lambda x: classes[x], test_ids))
 print(f"Average f1s on unseen: {f1_score(Y_real, test_predictions, average='micro')}")
 
 # PART 6 PREPARE SUBMISSION
 def get_data_for_submitting():
-    df_test = util.load_data_to_dataframe('dataset/test.json')
-    test_feats, _, test_ids = get_feats_labels_ids(create_features(df_test))
+    #df_test = util.load_data_to_dataframe('dataset/test.json')
+    #prepared_df = create_features(df_test)
+    #prepared_df.to_csv('cache/test.csv', index=False)
+    prepared_df = filterout_mac_features(pd.read_csv('cache/test.csv'))
+    test_feats, _, test_ids = get_feats_labels_ids(prepared_df)
     return test_feats, test_ids
 
 def dump_for_submitting():
@@ -98,7 +110,6 @@ def dump_for_submitting():
         test_aggregate += test_predict
     test_aggregate = test_aggregate / k
     class_ids = np.argmax(test_aggregate, axis=1)
-    classes = models[0].classes_
     test_predictions = list(map(lambda x: classes[x], class_ids))
 
     with open("out/subm.csv", 'w') as f:
