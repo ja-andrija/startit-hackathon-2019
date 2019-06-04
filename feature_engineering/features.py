@@ -35,7 +35,7 @@ def get_data(target_set, invalidate_cache=False):
     
     features, labels = get_feats_labels(featurized_dataframe)
     if target_set==dataset.SUBMISSION:
-        return features, labels, featurized_dataframe['device_id']
+        return features, featurized_dataframe['device_id']
     return features, labels
 
 def contains_port(x, port):
@@ -115,13 +115,13 @@ def create_features(all_data):
     #mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
     #mac_token_names_list = add_mac_tokens_get_token_names_list(df)
     
-    #dhcp_names = add_dhcp(df)
+    dhcp_names = add_dhcp(df)
 
     upnp_words_list = words.create_upnp_word_columns(df)
     ssdp_words_list = words.create_ssdp_word_columns(df)
     device_class_column = ['device_class'] if 'device_class' in df else []
     
-    return df[['has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id', 'open_port_count'] + upnp_words_list + ssdp_words_list + device_class_column + port_list]
+    return df[['has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id', 'open_port_count'] + dhcp_names + upnp_words_list + ssdp_words_list + device_class_column + port_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here

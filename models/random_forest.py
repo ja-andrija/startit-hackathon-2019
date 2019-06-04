@@ -5,9 +5,8 @@ from sklearn.base import BaseEstimator
 class RandomForest(BaseEstimator):
     def __init__(self):
         # Set the parameters by cross-validation
-        self.tuned_parameters = {'n_estimators': [50], 'max_depth': [3]}
+        self.tuned_parameters = {'n_estimators': [50, 100, 200]}
 
-        RandomForestClassifier(verbose=True, n_jobs=2, random_state=42, n_estimators=300)
         self.clf = GridSearchCV(RandomForestClassifier(), self.tuned_parameters, cv=5)
 
     def fit(self, X, Y):

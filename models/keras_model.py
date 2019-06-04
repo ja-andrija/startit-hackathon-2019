@@ -2,22 +2,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Input
 import numpy as np
 from sklearn.base import BaseEstimator
-
-CLASSES_TO_INT = {
-    'AUDIO': 0,
-    'GAME_CONSOLE': 1,
-    'GENERIC_IOT':2,
-    'HOME_AUTOMATION': 3,
-    'IP_PHONE':4,
-    'MEDIA_BOX':5,
-    'MOBILE':6,
-    'NAS':7,
-    'PC':8,
-    'PRINTER':9,
-    'SURVEILLANCE':10,
-    'TV':11,
-    'VOICE_ASSISTANT':12
-}
+from dataset_preparation.util import CLASSES_TO_INT
 
 def labels_onehot(y):
     all_labels  = []
@@ -45,7 +30,7 @@ class KerasModel(BaseEstimator):
     def fit(self, X, Y):
         y_map = labels_onehot(Y)
         self.model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-        self.model.fit(x=X.values, y=y_map, epochs= 1)
+        self.model.fit(x=X.values, y=y_map, epochs= 15)
     
     def predict(self, X):
         preds = self.model.predict(X)

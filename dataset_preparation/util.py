@@ -10,9 +10,26 @@ from operator import itemgetter
 test_pth = 'test.json'
 train_pth = 'train.json'
 
+CLASSES_TO_INT = {
+    'AUDIO': 0,
+    'GAME_CONSOLE': 1,
+    'GENERIC_IOT':2,
+    'HOME_AUTOMATION': 3,
+    'IP_PHONE':4,
+    'MEDIA_BOX':5,
+    'MOBILE':6,
+    'NAS':7,
+    'PC':8,
+    'PRINTER':9,
+    'SURVEILLANCE':10,
+    'TV':11,
+    'VOICE_ASSISTANT':12
+}
+
 device_names = [
     'AUDIO',
     'GAME_CONSOLE',
+    'GENERIC_IOT',
     'HOME_AUTOMATION',
     'IP_PHONE',
     'MEDIA_BOX',
@@ -22,8 +39,8 @@ device_names = [
     'PRINTER',
     'SURVEILLANCE',
     'TV',
-    'VOICE_ASSISTANT',
-    'GENERIC_IOT']
+    'VOICE_ASSISTANT'
+]
 
 def load_all_data(json_path):
     all_data = []
