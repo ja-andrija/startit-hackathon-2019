@@ -4,6 +4,7 @@ import os
 import random
 import shutil
 import dataset_preparation.util as util
+import dataset_preparation.port_statistics as port_statistics
 
 def split_train_test(json_path, train_ratio):
     with open(json_path, 'r') as fp:
@@ -35,7 +36,12 @@ if __name__=="__main__":
     # Split train.json into train_split.json and test_split.json
     split_train_test(os.path.join(dataset_path, "train.json"), split_ratio)
 
+    # Calculate port statistics
+    print("============= PRECOMPUTING PORT STATISTICS =============")
+    port_statistics.compute_port_statistics()
+
     # Create mac tokens
+    print("============= CREATING MAC TOKENS =============")
     util.create_mac_tokens(dataset_path)
 
     # Create mdns tokens
