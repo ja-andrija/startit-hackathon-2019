@@ -6,10 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
-port_gains.json
-port_device_class.csv
-train_split.json
-visualization.xlsx
+cache/*
+
+*.pyproj
+*.sln
 
 .vscode/
 

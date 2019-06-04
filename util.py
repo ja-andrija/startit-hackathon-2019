@@ -95,7 +95,7 @@ def read_proper_json_from_file(json_path):
     with open(json_path, 'r') as fp:
         return json.load(fp)
 
-def split_train_val(json_path, train_ratio = 0.4):
+def split_train_test(json_path, train_ratio = 0.4):
     data = load_all_data(json_path)
     random.seed(42)
     random.shuffle(data)
@@ -105,7 +105,7 @@ def split_train_val(json_path, train_ratio = 0.4):
     write_json_to_file(train_split, 'train_split.json')
     write_json_to_file(val_split, 'val_test_split.json')
 
-def split_train_val_without_changes(json_path, train_ratio = 0.4):
+def split_train_test_without_changes(json_path, train_ratio = 0.4):
     with open(json_path, 'r') as fp:
         data = fp.readlines()
     random.seed(42)

@@ -5,10 +5,6 @@ from pyitlib import discrete_random_variable as drv
 import numpy as np
 import math
 
-def plot_class_distribution(df):
-    df['device_class'].value_counts().plot(kind='bar')
-    plt.show()
-
 def extract_port(x):
     if type(x) is dict:
         return int(x['port'])
