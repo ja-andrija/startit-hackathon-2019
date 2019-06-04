@@ -14,7 +14,7 @@ def split_train_test(json_path, train_ratio):
     test_split = data[train_split_len:]
     with open('cache/train_split.json', 'w') as f:
         f.writelines(train_split)
-    with open('dataset/test_split.json', 'w') as f:
+    with open('cache/test_split.json', 'w') as f:
         f.writelines(test_split)
 
 if __name__=="__main__":
@@ -29,7 +29,7 @@ if __name__=="__main__":
     split_ratio = args.train_ratio
 
     # Copy test.json to cache/test.json
-    shutil.copy2(os.path.join(dataset_path, "test.json"), "/cache/test.json")
+    shutil.copy(os.path.join(dataset_path, "test.json"), "cache/test.json")
 
     # Split train.json into train_split.json and test_split.json
     split_train_test(os.path.join(dataset_path, "train.json"), split_ratio)
