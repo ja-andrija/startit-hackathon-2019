@@ -1,7 +1,7 @@
 import csv
 import pandas
 import re
-import util
+import dataset_preparation.util as util
 
 def word_list(column, labels):
     words = [(l, re.findall(r'[^\s!,.?\'\]":;{}[0-9]+', s)) for (s, l) in zip(column, labels)]
@@ -38,7 +38,7 @@ ImportantUpnpWords = [
     'NETGEAR',
     'Belkin',
     'remoteaccess',
-     'BRAVIA',
+    'BRAVIA',
     'VIErA',
     'KDL-',
     '(ReadyDLNA)',

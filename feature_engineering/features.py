@@ -1,10 +1,42 @@
 import csv
 import pandas as pd
-import util
+import dataset_preparation.util as util
 import numpy as np
 import ast
-import words
+import os
+import feature_engineering.words as words
 import json
+from enum import Enum
+
+def get_feats_labels(df):
+    df = df.drop('device_id', axis=1)
+    if 'device_class' in df:
+        feats = df.drop('device_class', axis=1)
+        labels = df['device_class']
+    else:
+        feats = df
+        labels = []
+    return feats, labels
+
+class dataset(Enum):
+    TRAIN_SPLIT = 'train_split'
+    TEST_SPLIT = 'test_split'
+    SUBMISSION = 'test'
+
+def get_data(target_set, invalidate_cache=False):
+    target_json_file = 'cache/' + target_set.value + '.json'
+    target_csv_file = 'cache/' + target_set.value + '.csv'
+    if os.path.isfile(target_csv_file) and invalidate_cache==False:
+        featurized_dataframe = pd.read_csv(target_csv_file)
+    else:
+        df = util.load_data_to_dataframe(target_json_file)
+        featurized_dataframe = create_features(df)
+        featurized_dataframe.to_csv(target_csv_file, index=False)
+    
+    features, labels = get_feats_labels(featurized_dataframe)
+    if target_set==dataset.SUBMISSION:
+        return features, labels, featurized_dataframe['device_id']
+    return features, labels
 
 def contains_port(x, port):
     if type(x['services']) is list:
@@ -80,23 +112,16 @@ def create_features(all_data):
 
     port_list = add_port_list(df)
 
-    mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
-    mac_token_names_list = add_mac_tokens_get_token_names_list(df)
-    upnp_words_list = words.create_upnp_word_columns(df)
+    #mdns_token_names_list = add_mdns_tokens_get_token_names_list(df)
+    #mac_token_names_list = add_mac_tokens_get_token_names_list(df)
+    
+    #dhcp_names = add_dhcp(df)
 
-    dhcp_names = add_dhcp(df)
+    upnp_words_list = words.create_upnp_word_columns(df)
     ssdp_words_list = words.create_ssdp_word_columns(df)
     device_class_column = ['device_class'] if 'device_class' in df else []
-    return df[['has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id', 'open_port_count'] + mdns_token_names_list + upnp_words_list + ssdp_words_list + device_class_column + dhcp_names + port_list + mac_token_names_list]
-
-'''    selected_columns = np.array(pd.read_csv('selected_columns.csv').values).flatten().tolist()
-    if 'device_class' not in df:
-        selected_columns.remove('device_class')
-    return all_features[selected_columns]'''
-    #feature_scores = pd.read_csv('feature_importance.csv')
-    #top_features=feature_scores.nlargest(378,'Score')
-    #top_features_list = top_features['Specs'].values.tolist()
-    #return all_features[top_features_list + device_class_column + ['device_id']]
+    
+    return df[['has_upnp', 'has_ssdp', 'has_mdns', 'has_dhcp', 'device_id', 'open_port_count'] + upnp_words_list + ssdp_words_list + device_class_column + port_list]
 
 def split_train_val_data(featurized_dataframe):
     # TODO pandas magic here

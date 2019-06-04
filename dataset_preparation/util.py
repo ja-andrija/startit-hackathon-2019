@@ -116,7 +116,7 @@ def make_tokens(in_json, out_json):
         json.dump(inv, f)
 
 def get_mdns_tokens():
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset", "mdns_tokens.json")) as f:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache", "mdns_tokens.json")) as f:
         mdns_tokens = json.load(f)
     return mdns_tokens
 
@@ -128,9 +128,9 @@ def get_mac_set(json_path):
         mac_set[json.loads(line)['mac'][:8]] += 1
     return mac_set
 
-def create_mac_tokens():
-    train_mac_set = get_mac_set('dataset/train.json')
-    test_mac_set = get_mac_set('dataset/test.json')
+def create_mac_tokens(dataset_path):
+    train_mac_set = get_mac_set(os.path.join(dataset_path, 'train.json'))
+    test_mac_set = get_mac_set(os.path.join(dataset_path, 'test.json'))
     intersect = set(train_mac_set.keys()) & set(test_mac_set.keys())
     sum_mac = {}
     for mac in intersect:
@@ -140,16 +140,13 @@ def create_mac_tokens():
     top_macs = [i[0] for i in top_macs]
     tokenized = dict(list(enumerate(top_macs)))
     inv = {v: k for k, v in tokenized.items()}
-    with open('dataset/mac_tokens.json', 'w') as f:
+    with open('cache/mac_tokens.json', 'w') as f:
         json.dump(inv, f)
 
 def get_mac_tokens():
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset", "mac_tokens.json")) as f:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache", "mac_tokens.json")) as f:
         mac_tokens = json.load(f)
     return mac_tokens
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "stats_out", "mdns_tokens.json")) as f:
-        mdns_tokens = json.load(f)
-    return mdns_tokens
 
 def enumerate_dhcp_classid():
     class_ids = set()

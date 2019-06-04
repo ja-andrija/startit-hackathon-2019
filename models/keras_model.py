@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers import Dense, Input
 import numpy as np
+from sklearn.base import BaseEstimator
 
 CLASSES_TO_INT = {
     'AUDIO': 0,
@@ -22,12 +23,15 @@ def labels_onehot(y):
     all_labels  = []
     for label in y:
         one_hot = len(CLASSES_TO_INT) * [0]
-        one_hot[CLASSES_TO_INT[label]] = 1
+        index = label
+        if type(label) is str:
+            index = CLASSES_TO_INT[label]
+        one_hot[index] = 1
         all_labels.append(one_hot)
     return np.array(all_labels)
 
 
-class KerasModel(object):
+class KerasModel(BaseEstimator):
     def __init__(self):
         a = Sequential()
         #a.add(Dense(2048, activation = 'tanh'))
@@ -41,7 +45,7 @@ class KerasModel(object):
     def fit(self, X, Y):
         y_map = labels_onehot(Y)
         self.model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-        self.model.fit(x=X.values, y=y_map, epochs= 10)
+        self.model.fit(x=X.values, y=y_map, epochs= 1)
     
     def predict(self, X):
         preds = self.model.predict(X)

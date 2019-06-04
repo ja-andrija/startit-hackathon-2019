@@ -3,6 +3,7 @@ import argparse
 import os
 import random
 import shutil
+import dataset_preparation.util as util
 
 def split_train_test(json_path, train_ratio):
     with open(json_path, 'r') as fp:
@@ -33,3 +34,8 @@ if __name__=="__main__":
 
     # Split train.json into train_split.json and test_split.json
     split_train_test(os.path.join(dataset_path, "train.json"), split_ratio)
+
+    # Create mac tokens
+    util.create_mac_tokens(dataset_path)
+
+    # Create mdns tokens
